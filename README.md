@@ -1,6 +1,10 @@
 # data-representation-project
 
-Data Representation project 2023-2024
+## Data Representation project 2023-2024
+-----------
+
+## Author: Sofiia Meteliuk G00426049
+-----------
 
 BIG PROJECT (60%)
 
@@ -15,7 +19,7 @@ CRUD operations on the data.
 
 ### My project:
 Simple shopping list, where you can write in product (`prod_name`) that you plan to buy, shop(`shop`) where to buy, and quantity (`quantity`).
-It will be stored in database table (`sh_list`) in database called `datarepresentation`. 
+It will be stored in database table (`sh_list`) in database called `shoppinglist`. 
 
 
 
@@ -31,8 +35,9 @@ It will be stored in database table (`sh_list`) in database called `datarepresen
 
 ### To run this program on your machine:
 
-1. Download zip file or clone the repository
-2. Open command line in the folder:
-   - Print next commands to activate a virtual environment: `python -m venv venv`, then `.\venv\Scripts\activate.bat`; `pip install -r requirements.txt`
-3. Run `server1.py` from  command line. Go to page `http://127.0.0.1:5000/index.html`
-4. You can also see JSON file of current table  on `http://127.0.0.1:5000/items`
+1. Download zip file or clone this repository;
+2. Open command line in project folder:
+   - Print next commands to activate a virtual environment: `python -m venv venv`, then `.\venv\Scripts\activate.bat`; `pip install -r requirements.txt`;
+3. Open mysql command line in project folder and repeat commands from `initdb.sql`;
+3. Run `server1.py` from  command line. Go to page `http://127.0.0.1:5000/index.html`;
+4. You can also see JSON file of current table  on `http://127.0.0.1:5000/items`;
