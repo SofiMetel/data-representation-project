@@ -3,7 +3,7 @@ import dbconfig as cfg
 
 
 
-class BookDAO:
+class shoplistDAO:
     connection=""
     cursor =''
     host=       ''
@@ -34,7 +34,7 @@ class BookDAO:
          
     def create(self, values):
         cursor = self.getcursor()
-        sql="insert into book (title,author, price) values (%s,%s,%s)"
+        sql="insert into sh_list (prod_name,shop,quantity) values (%s,%s,%s)"
         cursor.execute(sql, values)
 
         self.connection.commit()
@@ -44,7 +44,7 @@ class BookDAO:
 
     def getAll(self):
         cursor = self.getcursor()
-        sql="select * from book"
+        sql="select * from sh_list"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
@@ -58,7 +58,7 @@ class BookDAO:
 
     def findByID(self, id):
         cursor = self.getcursor()
-        sql="select * from book where id = %s"
+        sql="select * from sh_list where id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
@@ -69,14 +69,14 @@ class BookDAO:
 
     def update(self, values):
         cursor = self.getcursor()
-        sql="update book set title= %s,author=%s, price=%s  where id = %s"
+        sql="update sh_list set title= %s,author=%s, price=%s  where id = %s"
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
         
     def delete(self, id):
         cursor = self.getcursor()
-        sql="delete from book where id = %s"
+        sql="delete from sh_list where id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
@@ -96,5 +96,4 @@ class BookDAO:
                 item[colName] = value
         
         return item
-        
-bookDAO = BookDAO()
+shoplistDAO = shoplistDAO()

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <prod_name>Shopping List</prod_name>
+    <title>Shopping List</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -17,7 +17,7 @@
             <table class="table" id="shoppingTable">
                 <thead>
                     <tr>
-                        <th>id</th>
+                        <th>ID</th>
                         <th>Product Name</th>
                         <th>Shop</th>
                         <th>Quantity</th>
@@ -34,16 +34,16 @@
             <h2 class="mb-3"><span id="createLabel">Add</span> <span id="updateLabel">Update</span> Item</h2>
             <input type="hidden" name="id"/>
             <div class="form-group">
-                <label for="prod_name">Product Name</label>
-                <input type="text" class="form-control" name="prod_name" />
+                <label for="title">Product Name</label>
+                <input type="text" class="form-control" name="title" />
             </div>
             <div class="form-group">
-                <label for="shop">Shop</label>
-                <input type="text" class="form-control" name="shop"/>
+                <label for="author">Shop</label>
+                <input type="text" class="form-control" name="author"/>
             </div>
             <div class="form-group">
-                <label for="quantity">Quantity</label>
-                <input type="number" class="form-control" name="quantity"/>
+                <label for="price">Quantity</label>
+                <input type="number" class="form-control" name="price"/>
             </div>
             <div class="form-group">
                 <button class="btn btn-success" id="doCreateButton" onclick="doCreate()">Add</button>
@@ -51,9 +51,14 @@
             </div>
         </div>
     </div>
-</body>
-<script>
-    function showCreate(){
+    </body>
+    <!-- Bootstrap JavaScript files -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+            function showCreate(){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('shoppingTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="block"
@@ -85,27 +90,27 @@
         var rowElement = buttonElement.parentNode.parentNode
         // these is a way of finding the closest <tr> which would safer, closest()
         
-        var item = getItemFromRow(rowElement)
-        populateFormWithItem(item)
+        var book = getBookFromRow(rowElement)
+        populateFormWithBook(book)
     }
     function doCreate(){
         var form = document.getElementById('createUpdateForm')
 
-        var item = {}
+        var book = {}
        
-        item.prod_name = form.querySelector('input[name="prod_name"]').value
-        item.shop = form.querySelector('input[name="shop"]').value
-        item.quantity = form.querySelector('input[name="quantity"]').value
-        console.log(JSON.stringify(item))
-        createItemAjax(item)
+        book.title = form.querySelector('input[name="title"]').value
+        book.author = form.querySelector('input[name="author"]').value
+        book.price = form.querySelector('input[name="price"]').value
+        console.log(JSON.stringify(book))
+        createBookAjax(book)
         
         
     }
     function doUpdate(){
-        var item = getItemFromForm();
-        var rowElement = document.getElementById(item.id);
-        updateItemAjax(item);
-        setItemInRow(rowElement,item);
+        var book = getBookFromForm();
+        var rowElement = document.getElementById(book.id);
+        updateBookAjax(book);
+        setBookInRow(rowElement,book);
        
         clearForm();
         showViewAll();
@@ -114,79 +119,79 @@
         var tableElement = document.getElementById('shoppingTable');
         var rowElement = r.parentNode.parentNode;
         var index = rowElement.rowIndex;
-        deleteItemAjax(rowElement.getAttribute("id"));
+        deleteBookAjax(rowElement.getAttribute("id"));
         tableElement.deleteRow(index);
     }
-    function addItemToTable(item){
+    function addBookToTable(book){
         var tableElement = document.getElementById('shoppingTable')
         var rowElement = tableElement.insertRow(-1)
-        rowElement.setAttribute('id',item.id)
+        rowElement.setAttribute('id',book.id)
         var cell1 = rowElement.insertCell(0);
-        cell1.innerHTML = item.id
+        cell1.innerHTML = book.id
         var cell2 = rowElement.insertCell(1);
-        cell2.innerHTML = item.prod_name
+        cell2.innerHTML = book.title
         var cell3 = rowElement.insertCell(2);
-        cell3.innerHTML = item.shop
+        cell3.innerHTML = book.author
         var cell4 = rowElement.insertCell(3);
-        cell4.innerHTML = item.quantity
+        cell4.innerHTML = book.price
         var cell5 = rowElement.insertCell(4);
         cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
         var cell6 = rowElement.insertCell(5);
-        cell6.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+        cell6.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
 
     }
 
     function clearForm(){
         var form = document.getElementById('createUpdateForm')
 
-        form.querySelector('input[name="prod_name"]').value=''
-        form.querySelector('input[name="shop"]').value=''
-        form.querySelector('input[name="quantity"]').value=''
+        form.querySelector('input[name="title"]').value=''
+        form.querySelector('input[name="author"]').value=''
+        form.querySelector('input[name="price"]').value=''
     }
-    function getitemFromRow(rowElement){
+    function getBookFromRow(rowElement){
         var car ={}
-        item.id  = rowElement.getAttribute('id')
-        item.prod_name = rowElement.cells[1].firstChild.textContent
-        item.shop = rowElement.cells[2].firstChild.textContent
-        item.quantity = parseInt(rowElement.cells[3].firstChild.textContent,10)
-        return item
+        book.id  = rowElement.getAttribute('id')
+        book.title = rowElement.cells[1].firstChild.textContent
+        book.author = rowElement.cells[2].firstChild.textContent
+        book.price = parseInt(rowElement.cells[3].firstChild.textContent,10)
+        return book
     }
-    function setItemInRow(rowElement, item){
-        rowElement.cells[0].firstChild.textContent= item.id  
-        rowElement.cells[1].firstChild.textContent= item.prod_name 
-        rowElement.cells[2].firstChild.textContent= item.shop
-        rowElement.cells[3].firstChild.textContent= item.quantity
+    function setBookInRow(rowElement, book){
+        rowElement.cells[0].firstChild.textContent= book.id  
+        rowElement.cells[1].firstChild.textContent= book.title 
+        rowElement.cells[2].firstChild.textContent= book.author
+        rowElement.cells[3].firstChild.textContent= book.price
     }
-    function populateFormWithItem(item){
+    function populateFormWithBook(book){
         var form = document.getElementById('createUpdateForm')
         form.querySelector('input[name="id"]').disabled = true
 
-        form.querySelector('input[name="id"]').value  = item.id
-        form.querySelector('input[name="prod_name"]').value= item.prod_name
-        form.querySelector('input[name="shop"]').value= item.shop
-        form.querySelector('input[name="quantity"]').value= item.quantity
-        return item
+        form.querySelector('input[name="id"]').value  = book.id
+        form.querySelector('input[name="title"]').value= book.title
+        form.querySelector('input[name="author"]').value= book.author
+        form.querySelector('input[name="price"]').value= book.price
+        return book
     }
-    function getItemFromForm(){
+    function getBookFromForm(){
         var form = document.getElementById('createUpdateForm')
-        var item = {}
-        item.id = form.querySelector('input[name="id"]').value
-        item.prod_name = form.querySelector('input[name="prod_name"]').value
-        item.shop = form.querySelector('input[name="shop"]').value
-        item.quantity = parseInt(form.querySelector('input[name="quantity"]').value,10)
-        console.log(JSON.stringify(item))
-        return item
+        var book = {}
+        book.id = form.querySelector('input[name="id"]').value
+        book.title = form.querySelector('input[name="title"]').value
+        book.author = form.querySelector('input[name="author"]').value
+        book.price = parseInt(form.querySelector('input[name="price"]').value,10)
+        console.log(JSON.stringify(book))
+        return book
     }
     function getAllAjax(){
         $.ajax({
-            "url": "http://127.0.0.1:5000/items",
+            "url": "http://127.0.0.1:5000/books",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
             "success":function(result){
                 //console.log(result);
-                for (item of result){
-                    addItemToTable(item);
+                for (book of result){
+                    addBookToTable(book);
                 }
                 
             },
@@ -196,20 +201,19 @@
         });
 
     }
-    function createItemAjax(item){
-        //var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto","quantity":3000}
-        console.log(JSON.stringify(item));
+    function createBookAjax(book){
+        //var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto","price":3000}
+        console.log(JSON.stringify(book));
         $.ajax({
-            "url": "http://127.0.0.1:5000/items",
+            "url": "http://127.0.0.1:5000/books",
             "method":"POST",
-            "data":JSON.stringify(item),
+            "data":JSON.stringify(book),
             "dataType": "JSON",
             contentType: "application/json; charset=utf-8",
             "success":function(result){
                 //console.log(result);
-                //console.log('Create item ajax success!!!');
-                item.id = result.id
-                addItemToTable(item)
+                book.id = result.id
+                addBookToTable(book)
                 clearForm()
                 showViewAll()
             },
@@ -218,13 +222,13 @@
             }
         });
     }
-    function updateItemAjax(item){
-        //var car = {"reg":"12 D 1234","quantity":8000}
-        console.log(JSON.stringify(item));
+    function updateBookAjax(book){
+        //var car = {"reg":"12 D 1234","price":8000}
+        console.log(JSON.stringify(book));
         $.ajax({
-            "url": "http://127.0.0.1:5000/items/"+encodeURI(item.id),
+            "url": "http://127.0.0.1:5000/books/"+encodeURI(book.id),
             "method":"PUT",
-            "data":JSON.stringify(item),
+            "data":JSON.stringify(book),
             "dataType": "JSON",
             contentType: "application/json; charset=utf-8",
             "success":function(result){
@@ -236,11 +240,11 @@
             }
         });
     }
-    function deleteItemAjax(id){
+    function deleteBookAjax(id){
         
         //console.log(JSON.stringify('deleting '+id));
         $.ajax({
-            "url": "http://127.0.0.1:5000/items/"+encodeURI(id),
+            "url": "http://127.0.0.1:5000/books/"+encodeURI(id),
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",
@@ -255,8 +259,7 @@
         });
     }
     getAllAjax();
-  
 
-    
     </script>
+
 </html>
