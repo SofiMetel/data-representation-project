@@ -6,21 +6,20 @@ BIG PROJECT (60%)
 
 Description:
 Write a program that demonstrates that you understand creating and consuming
-RESTful APIs. I will allow a lot of flexibility in this project, so that you can use it as an
-opportunity to do something that is useful for your work.
+RESTful APIs. 
 
 - Create a Web application in Flask that has a RESTful API, the application
 should link to one or more database tables.
 - You should also create the web pages that can consume the API. I.e. performs
 CRUD operations on the data.
 
-My project:
+### My project:
 Simple shopping list, where you can write in product (`prod_name`) that you plan to buy, shop(`shop`) where to buy, and quantity (`quantity`).
 It will be stored in database table (`sh_list`) in database called `datarepresentation`. 
 
 
 
-Repository contains: 
+### Repository contains: 
 
 1. folder 'staticpages' with index.html for web application part and AJAX call to the server.
 2. `server1.py` - a Flask server app program
