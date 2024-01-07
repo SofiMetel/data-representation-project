@@ -41,3 +41,9 @@ It will be stored in database table (`sh_list`) in database called `shoppinglist
 3. Open mysql command line in project folder and repeat commands from `initdb.sql`;
 3. Run `server1.py` from  command line. Go to page `http://127.0.0.1:5000/index.html`;
 4. You can also see JSON file of current table  on `http://127.0.0.1:5000/items`;
+
+
+
+-------
+### References:
+This project is based on code from: https://github.com/andrewbeattycourseware/datarepresentation/tree/main/code
